@@ -1,0 +1,58 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+
+public class Solution {
+    static ArrayList<Integer>[] graph;
+    static int[] w;
+    static int[] total;
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        w = new int[n+1];
+        graph = new ArrayList[n+1];
+        total = new int[n+1];
+        for(int i=1; i<=n; ++i) {
+            w[i] = sc.nextInt();
+            graph[i] = new ArrayList<Integer>();
+        }
+        for(int i=1; i<n; ++i) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            graph[x].add(y);
+            graph[y].add(x);
+        }
+        
+        int totalweight = genWeights(1, 0);
+        int minDiff = Integer.MAX_VALUE;
+        for(int i=2; i<=n; ++i)
+            if(minDiff > Math.abs(totalweight - (total[i]<<1)))
+                minDiff = Math.abs(totalweight - (total[i]<<1));
+        
+        System.out.println(minDiff);
+    }
+    
+    public static int genWeights(int node, int parent) {
+        ArrayList<Integer> adj = graph[node];
+        Iterator<Integer> it = adj.iterator();
+        int totalw = 0;
+        while(it.hasNext()) {
+            int child = it.next();
+            if(child != parent)
+                totalw += genWeights(child, node);
+        }
+        totalw += w[node];
+        total[node] = totalw;
+        return totalw;
+    }
+}

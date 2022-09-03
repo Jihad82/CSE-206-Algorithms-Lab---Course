@@ -1,0 +1,36 @@
+
+Sample Input
+
+6                                (the number of vertices in the tree.)
+100 200 100 500 100 600          (data)
+1 2                              (edges)
+2 3
+2 5
+4 5
+5 6
+
+Sample Output
+400
+
+----------------------------------------------------------------------
+
+Explanation
+
+we can represent tree as
+
+         1(100)
+          \
+           2(200)
+          / \
+    (100)5   3(100)
+        / \
+  (500)4   6(600)
+
+Cutting the edge at 1 2 would result in Tree_diff = 1500-100 = 1400 
+Cutting the edge at 2 3 would result in Tree_diff = 1500-100 = 1400 
+Cutting the edge at 2 5 would result in Tree_diff = 1200-400 = 800 
+Cutting the edge at 4 5 would result in Tree_diff = 1100-500 = 600 
+Cutting the edge at 5 6 would result in Tree_diff = 1000-600 = 400
+The minimum difference is 400.
+
+----------------------------------------------------------------------

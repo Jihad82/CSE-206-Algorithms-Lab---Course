@@ -1,0 +1,213 @@
+// Kruskals
+
+
+package kruskal;
+import java.util.*;
+
+class Kruskal
+{
+    static int V = 4;
+    static int[] parent = new int[V];
+    static int INF = Integer.MAX_VALUE;
+    public static void main(String[] args)
+    {
+        int cost[][]=
+        { 
+            {1, 5, 3, INF}, {7, 3,INF, 5}, {4, 5,2,6}, {2, INF, 8,1} 
+            
+        };
+        krushkal(cost);
+    }
+   static void krushkal(int cost[][])
+   {
+       int sum=0;
+       int mincost = 0;
+       int i, j, edge = 0;
+       for (i=0; i<V; i++)
+       {
+           parent[i] =i;
+       }
+       while (edge < V-1)
+       {
+           int min = INF, x=-1, y=-1;
+           for (i = 0; i<V; i++)
+           {
+               for (j=0; j<V; j++)
+               {
+                  if (find (i)!= find(j) && cost[i][j] < min)
+                  {
+                   min = cost[i][j];
+                   x = i;
+                   y = j;
+                  }
+               }
+           }
+           union(x,y);
+           System.out.printf("No. of Edge %d : %d to %d  Cost = %d\n", edge++, x, y, min);
+           
+           mincost = mincost + min;
+           if(mincost>sum){
+               sum= mincost;
+               sum++;
+           }
+       }
+       System.out.printf("\n MinimumCost is = %d ", mincost);
+       System.out.printf("\n Second best MinimumCost is = %d ", sum);
+   }
+static void union (int i, int j)
+{
+    int x= find(i);
+    int y= find(j);
+    parent[x] = y;
+}
+static int find (int i)
+{
+   while (parent[i]!=i)
+   {
+       i = parent[i];
+   }
+   return i;
+}
+}
+
+
+
+
+
+
+
+
+
+
+//  Merge sort
+
+
+
+
+package mergesort;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Mergesort {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int s = in.nextInt();
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[] keyboards = new int[n];
+        for(int keyboards_i=0; keyboards_i < n; keyboards_i++){
+            keyboards[keyboards_i] = in.nextInt();
+        }
+        int[] pendrives = new int[m];
+        for(int pendrives_i=0; pendrives_i < m; pendrives_i++){
+            pendrives[pendrives_i] = in.nextInt();
+        }
+        int max = 0;
+        for(int i=0; i<keyboards.length; i++){
+        	for(int j=0; j<pendrives.length; j++){
+        		if(keyboards[i]+pendrives[j] <= s ){
+        			max = Math.max(max, keyboards[i]+pendrives[j]);
+        		}
+        	}
+        }
+        if(max == 0){
+        	System.out.println(-1);
+        }else{
+        	System.out.println(max);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+//  Quick sort
+
+
+
+
+package quicksort;
+
+import java.util.Arrays;
+import java.util.Scanner;
+class Quick {
+
+
+  static int partition(int array[], int low, int high) {
+    int pivot = array[high];
+    int i = (low - 1);
+    
+    for (int j = low; j < high; j++) {
+      if (array[j] >= pivot) {
+        i++;
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+
+
+    int temp = array[i + 1];
+    array[i + 1] = array[high];
+    array[high] = temp;
+
+    return (i + 1);
+    
+  }
+
+  static void quickSort(int array[], int low, int high) {
+    if (low < high) {
+      int pi = partition(array, low, high);
+        
+        System.out.println("Pivot position: " +pi);
+        System.out.println("Pivot value: " +array[pi]);
+        System.out.println(Arrays.toString(array));
+
+      quickSort(array, low, pi - 1);
+
+      quickSort(array, pi + 1, high);
+    }
+  }
+  
+  
+  
+}
+
+// Main class
+public class Quicksort {
+  public static void main(String args[]) {
+
+    //int[] data = { 8, 7, 2, 1, 0, 9, 6 };
+    //System.out.println("Unsorted Array");
+    //System.out.println(Arrays.toString(data));
+    Scanner input= new Scanner(System.in);
+    
+    System.out.println("Enter the array size: ");
+     int n=input.nextInt();
+     int[] data = new int[n];
+      System.out.println("Enter the array element: ");
+      for(int i=0;i<n;i++){
+          data[i]=input.nextInt();
+      }
+      System.out.printf("\n");
+    int size = data.length;
+
+    // call quicksort() on array data
+    Quick.quickSort(data, 0, size - 1);
+
+    System.out.println("Sorted Array in descending Order: ");
+    System.out.println(Arrays.toString(data));
+  }
+}
+
